@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio — Tên Bạn</title>
+  <link rel="stylesheet" href="ga.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#">Tên Bạn</a>
+
+      <nav class="main-nav" id="main-nav" aria-label="Primary">
+        <ul>
+          <li><a href="#about">Giới thiệu</a></li>
+          <li><a href="#projects">Dự án</a></li>
+          <li><a href="#contact">Liên hệ</a></li>
+        </ul>
+      </nav>
+
+      <div class="controls">
+        <button id="theme-toggle" aria-pressed="false" title="Chuyển giao diện">🌙</button>
+        <button id="nav-toggle" aria-controls="main-nav" aria-expanded="false" aria-label="Mở menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero" class="hero container">
+      <h1>Xin chào — Tôi là Tên Bạn</h1>
+      <p>Thiết kế web đáp ứng • HTML5 • CSS3 • Accessibility</p>
+      <a class="btn" href="#projects">Xem dự án</a>
+    </section>
+
+    <section id="about" class="container about">
+      <h2>Giới thiệu</h2>
+      <p>Đoạn mô tả ngắn về bạn — kỹ năng, mục tiêu, v.v.</p>
+    </section>
+
+    <section id="projects" class="container projects">
+      <h2>Dự án</h2>
+      <div class="projects-grid">
+        <article class="card">
+          <h3>Project A</h3>
+          <p>Mô tả ngắn — công nghệ: HTML, CSS, JS.</p>
+          <a href="#" class="card-link">Xem chi tiết</a>
+        </article>
+
+        <article class="card">
+          <h3>Project B</h3>
+          <p>Mô tả ngắn — responsive grid, accessibility.</p>
+          <a href="#" class="card-link">Xem chi tiết</a>
+        </article>
+
+        <article class="card">
+          <h3>Project C</h3>
+          <p>Mô tả ngắn — form validation.</p>
+          <a href="#" class="card-link">Xem chi tiết</a>
+        </article>
+
+        <article class="card">
+          <h3>Project D</h3>
+          <p>Mô tả ngắn — animation nhẹ.</p>
+          <a href="#" class="card-link">Xem chi tiết</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="container contact">
+      <h2>Liên hệ</h2>
+      <form id="contact-form" action="#" method="post" novalidate>
+        <label for="name">Họ & Tên</label>
+        <input id="name" name="name" type="text" required aria-required="true" />
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required aria-required="true" />
+
+        <label for="message">Tin nhắn</label>
+        <textarea id="message" name="message" rows="5" required aria-required="true"></textarea>
+
+        <button type="submit" class="btn">Gửi</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year"></span> Tên Bạn — All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Small JS for theme toggle and nav toggle
+    (function(){
+      const html = document.documentElement;
+      const themeBtn = document.getElementById('theme-toggle');
+      const navToggle = document.getElementById('nav-toggle');
+      const nav = document.getElementById('main-nav');
+
+      // Load saved theme
+      if (localStorage.getItem('theme') === 'dark') {
+        html.classList.add('dark');
+        themeBtn.setAttribute('aria-pressed','true');
+        themeBtn.textContent = '☀';
+      }
+
+      themeBtn.addEventListener('click', () => {
+        const isDark = html.classList.toggle('dark');
+        themeBtn.setAttribute('aria-pressed', String(isDark));
+        themeBtn.textContent = isDark ? '☀' : '🌙';
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      });
+
+      navToggle.addEventListener('click', () => {
+        const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+        navToggle.setAttribute('aria-expanded', String(!expanded));
+        nav.classList.toggle('open');
+      });
+
+      // Simple form prevention (demo)
+      document.getElementById('contact-form').addEventListener('submit', function(e){
+        if (!this.checkValidity()) {
+          // Let browser show validation UI
+          return;
+        }
+        e.preventDefault();
+        alert('Form đã gửi (demo).');
+      });
+
+      // Set year
+      document.getElementById('year').textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>
